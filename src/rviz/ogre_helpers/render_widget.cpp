@@ -52,7 +52,7 @@ RenderWidget::RenderWidget( RenderSystem* render_system, QWidget *parent )
 
   // It is not clear to me why, but having this frame sub-widget
   // inside the main widget makes an important difference (under X at
-  // least).  Without the frame and using this widget's winId() 
+  // least).  Without the frame and using this widget's winId()
   // below causes trouble when using RenderWidget as a child
   // widget.  The frame graphics are completely covered up by the 3D
   // render, so using it does not affect the appearance at all.
@@ -74,7 +74,7 @@ RenderWidget::RenderWidget( RenderSystem* render_system, QWidget *parent )
 #endif  
   QApplication::flush();
   QApplication::syncX();
-  render_window_ = render_system_->makeRenderWindow( win_id, width(), height() );
+  render_window_ = render_system_->makeRenderWindow(win_id, width(), height());
 }
 
 RenderWidget::~RenderWidget()
