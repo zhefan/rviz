@@ -67,11 +67,7 @@ RenderWidget::RenderWidget( RenderSystem* render_system, QWidget *parent )
   mainLayout->addWidget(this->renderFrame);
   this->setLayout(mainLayout);
 
-#ifdef Q_OS_MAC
-  uintptr_t win_id = winId();
-#else
-  unsigned int win_id = renderFrame->winId();
-#endif  
+  WId win_id = this->renderFrame->winId();
   QApplication::flush();
   QApplication::syncX();
   render_window_ = render_system_->makeRenderWindow(win_id, width(), height());
