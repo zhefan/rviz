@@ -39,6 +39,7 @@
 #include <OgreColourValue.h>
 #include <OgreMaterial.h>
 #include <OgreSharedPtr.h>
+#include <OgreMovableObject.h>
 
 namespace Ogre
 {
@@ -124,6 +125,8 @@ private:
 
   uint32_t current_chain_;
   uint32_t elements_in_current_chain_;
+
+  Ogre::MovableObjectFactory * custom_billboard_factory_;
 };
 
 } // namespace rviz
