@@ -37,6 +37,8 @@
 #define NULL 0
 #endif
 
+#define RVIZ_IS_SHIBOKEN 1
+
 #include "pyside_global.h"
 
 #include <QtCore/QtCore>

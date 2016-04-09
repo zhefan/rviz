@@ -33,7 +33,9 @@
 
 #include <string>
 
-#include <boost/shared_ptr.hpp>
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include <boost/shared_ptr.hpp>
+#endif
 
 #include <QMap>
 #include <QString>

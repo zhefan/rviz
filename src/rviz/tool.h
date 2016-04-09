@@ -31,7 +31,9 @@
 #define RVIZ_TOOL_H
 
 #include <QString>
-#include <QIcon>
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include <QIcon>
+#endif
 #include <QCursor>
 #include <QObject>
 
@@ -134,6 +136,7 @@ public:
    * this function. */
   virtual void save( Config config ) const;
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   /** @brief Set the toolbar icon for this tool (will also set its cursor). */
   void setIcon( const QIcon& icon );
 
@@ -145,6 +148,7 @@ public:
 
   /** @brief Get current cursor of this tool. */
   const QCursor& getCursor() { return cursor_; }
+#endif
 
   void setStatus( const QString & message );
 

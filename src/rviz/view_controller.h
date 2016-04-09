@@ -146,8 +146,10 @@ public:
 
   bool isActive() const { return is_active_; }
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   /** @return A mouse cursor representing the current state */
   virtual QCursor getCursor() { return cursor_; }
+#endif
 
 Q_SIGNALS:
   void configChanged();
@@ -173,8 +175,10 @@ protected:
   enum CursorType{ Default, Rotate2D, Rotate3D, MoveXY, MoveZ, Zoom, Crosshair };
   void setCursor( CursorType cursor_type );
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   // set a custom cursor
   void setCursor( QCursor cursor ) { cursor_=cursor; }
+#endif
 
   DisplayContext* context_;
   Ogre::Camera* camera_;

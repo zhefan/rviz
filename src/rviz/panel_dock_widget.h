@@ -53,7 +53,9 @@ public:
 
   void setCollapsed( bool collapsed );
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   void setIcon( QIcon icon );
+#endif
 
   virtual void save( Config config );
   virtual void load( Config config );

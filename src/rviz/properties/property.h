@@ -32,7 +32,9 @@
 #include <string>
 
 #include <QObject>
-#include <QIcon>
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include <QIcon>
+#endif
 #include <QVariant>
 
 #include "rviz/config.h"
@@ -183,10 +185,12 @@ public:
   /** @brief Return the description. */
   virtual QString getDescription() const;
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   /** @brief Set the icon to be displayed next to the property. */
   virtual void setIcon( const QIcon& icon ) { icon_=icon; }
 
   virtual QIcon getIcon() const { return icon_; }
+#endif
 
   /** @brief Return the first child Property with the given name, or
    * the FailureProperty if no child has the name.

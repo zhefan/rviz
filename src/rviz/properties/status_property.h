@@ -66,7 +66,9 @@ public:
    * "Ok", "Warn", or "Error". */
   static QString statusWord( Level level );
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   QIcon statusIcon( Level level ) const;
+#endif
 
   virtual void setLevel( Level level );
   virtual Level getLevel() const { return level_; }

@@ -32,7 +32,9 @@
 #include <string>
 
 #ifndef Q_MOC_RUN  // See: https://bugreports.qt-project.org/browse/QTBUG-22829
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
 # include <ros/ros.h>
+#endif
 #endif
 
 #include "rviz/properties/status_property.h"
@@ -208,8 +210,10 @@ public Q_SLOTS:
   /** @brief Convenience function which calls context_->queueRender(). */
   void queueRender();
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   /** @brief Set the Display's icon. */
   virtual void setIcon( const QIcon& icon );
+#endif
 
 protected:
 

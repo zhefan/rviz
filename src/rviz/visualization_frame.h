@@ -40,7 +40,9 @@
 #include "rviz/window_manager_interface.h"
 #include "rviz/panel.h"
 
-#include <ros/time.h>
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include <ros/time.h>
+#endif
 
 class QSplashScreen;
 class QAction;

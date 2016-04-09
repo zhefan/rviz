@@ -33,7 +33,9 @@
 
 #include <deque>
 
-#include <ros/time.h>
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include <ros/time.h>
+#endif
 
 #include "rviz/bit_allocator.h"
 #include "rviz/config.h"

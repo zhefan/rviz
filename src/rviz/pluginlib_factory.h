@@ -37,11 +37,15 @@
 #include <vector>
 
 #ifndef Q_MOC_RUN
-#include <pluginlib/class_loader.h>
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include <pluginlib/class_loader.h>
+#endif
 #endif
 
 #include "rviz/class_id_recording_factory.h"
-#include "rviz/load_resource.h"
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
+# include "rviz/load_resource.h"
+#endif
 
 namespace rviz
 {
@@ -125,6 +129,7 @@ public:
       return QString::fromStdString( class_loader_->getPluginManifestPath( class_id.toStdString() ));
     }
 
+#ifndef RVIZ_IS_SHIBOKEN  // See: https://bugreports.qt.io/browse/PYSIDE-218
   virtual QIcon getIcon( const QString& class_id ) const
   {
     QString package = getClassPackage( class_id );
@@ -140,6 +145,7 @@ public:
     }
     return icon;
   }
+#endif
 
   virtual void addBuiltInClass( const QString& package, const QString& name, const QString& description,
                                 Type* (*factory_function)() )
