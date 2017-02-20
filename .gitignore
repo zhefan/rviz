@@ -4,3 +4,4 @@ bin
 build
 lib
 *.sublime-workspace
+CMakeLists.txt.user
