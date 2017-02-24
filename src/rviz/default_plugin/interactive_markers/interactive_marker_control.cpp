@@ -88,6 +88,10 @@ InteractiveMarkerControl::InteractiveMarkerControl( DisplayContext* context,
 , line_(new Line(context->getSceneManager(),control_frame_node_))
 {
   line_->setVisible(false);
+  ros::Time haha = ros::Time::now();
+  filename = "/home/zhefanye/Documents/data_collection/" + std::string("obj_time_") +
+          boost::lexical_cast<std::string>(haha) + std::string(".txt");
+
 }
 
 void InteractiveMarkerControl::makeMarkers( const visualization_msgs::InteractiveMarkerControl& message )
@@ -217,7 +221,7 @@ void InteractiveMarkerControl::processMessage( const visualization_msgs::Interac
     }
     view_facing_ = new_view_facingness;
   }
-  
+
   independent_marker_orientation_ = message.independent_marker_orientation;
 
   // highlight_passes_ have raw pointers into the markers_, so must
@@ -463,6 +467,23 @@ void InteractiveMarkerControl::rotate( Ogre::Ray &mouse_ray )
     // Not that efficient, but reduces code duplication...
     rotate(intersection_3d);
   }
+  //ROS_INFO("ROTATE_AXIS");
+  std::ofstream out_file;
+  out_file.open (filename.c_str(), std::ios_base::app);
+  if (out_file.is_open()) {
+      std::cout << "time: " << ros::Time::now() << ", "
+                << "rotate_axis"
+                << ", x: " << mouse_ray.getOrigin().x
+                << ", y: " << mouse_ray.getOrigin().y
+                << ", z: " << mouse_ray.getOrigin().z
+                << ", r: " << mouse_ray.getDirection().x
+                << ", p: " << mouse_ray.getDirection().y
+                << ", y: " << mouse_ray.getDirection().z
+                << std::endl;
+  } else {
+      std::cout << "File not open" << std::endl;
+  }
+  out_file.close();
 }
 
 void InteractiveMarkerControl::rotate( const Ogre::Vector3& cursor_in_reference_frame )
@@ -727,7 +748,7 @@ void InteractiveMarkerControl::moveAxis( const Ogre::Ray& mouse_ray, const Viewp
   Ogre::Ray control_ray;
   control_ray.setOrigin( grab_point_in_reference_frame_ );
   control_ray.setDirection( control_frame_node_->getOrientation() * control_orientation_.xAxis() );
-  
+
   // project control-axis ray onto screen.
   Ogre::Vector2 control_ray_screen_start, control_ray_screen_end;
   worldToScreen( control_ray.getOrigin(), event.viewport, control_ray_screen_start );
@@ -750,7 +771,7 @@ void InteractiveMarkerControl::moveAxis( const Ogre::Ray& mouse_ray, const Viewp
   {
     double factor =
       ( mouse_point - control_ray_screen_start ).dotProduct( control_ray_screen_dir ) / denominator;
-    
+
     Ogre::Vector2 closest_screen_point = control_ray_screen_start + control_ray_screen_dir * factor;
 
     // make a new "mouse ray" for the point on the projected ray
@@ -765,6 +786,24 @@ void InteractiveMarkerControl::moveAxis( const Ogre::Ray& mouse_ray, const Viewp
                         parent_->getOrientation(), name_ );
     }
   }
+  //ROS_INFO("MOVE_AXIS");
+  std::ofstream out_file;
+  out_file.open (filename.c_str(), std::ios_base::app);
+  if (out_file.is_open()) {
+      std::cout << "time: " << ros::Time::now() << ", "
+                << "rotate_axis"
+                << ", x: " << mouse_ray.getOrigin().x
+                << ", y: " << mouse_ray.getOrigin().y
+                << ", z: " << mouse_ray.getOrigin().z
+                << ", r: " << mouse_ray.getDirection().x
+                << ", p: " << mouse_ray.getDirection().y
+                << ", y: " << mouse_ray.getDirection().z
+                << std::endl;
+  } else {
+      std::cout << "File not open" << std::endl;
+  }
+  out_file.close();
+
 }
 
 void InteractiveMarkerControl::moveAxis( const Ogre::Vector3& cursor_position_in_reference_frame )
@@ -840,7 +879,7 @@ void InteractiveMarkerControl::moveRotate( Ogre::Ray &mouse_ray )
       //  - pos_change = new_rel_center * (1.0 - prev_rel_center.length() / new_rel_center.length())
       //  - parent_->translate(pos_change)
       parent_->translate( new_rel_center * (1.0 - prev_rel_center.length() / new_rel_center.length()), name_ );
-    }    
+    }
   }
 }
 

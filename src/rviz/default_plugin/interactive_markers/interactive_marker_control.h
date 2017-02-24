@@ -447,6 +447,8 @@ protected:
   boost::shared_ptr<Line> line_;
 
   bool show_visual_aids_;
+
+  std::string filename;
 };
 
 }
